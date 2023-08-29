@@ -230,6 +230,7 @@ public class UnitTests
 
     private static async Task<string> CreateAccessToken()
     {
+        Console.WriteLine("Creating AccessToken!");
         // Workflow debugging
         if (_tenantId != null)
             Console.WriteLine("_clientId found");
