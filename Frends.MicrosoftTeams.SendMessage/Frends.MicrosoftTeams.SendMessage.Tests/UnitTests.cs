@@ -256,10 +256,19 @@ public class UnitTests
 
         var response = await client.ExecuteAsync(request);
 
-        if (response.Content != null)
-            return JsonDocument.Parse(response.Content)?.RootElement
-                .GetProperty("access_token").GetString() ?? "";
+        if (!string.IsNullOrEmpty(response.Content))
+        {
+            var jsonResponse = JsonDocument.Parse(response.Content).RootElement;
+
+            if (jsonResponse.TryGetProperty("access_token", out var accessTokenProperty) && accessTokenProperty.ValueKind == JsonValueKind.String)
+                return accessTokenProperty.GetString() ?? "";
+            else
+                Console.WriteLine("Access token not found in JSON response.");
+        }
         else
-            return string.Empty;
+            Console.WriteLine("Response content is empty.");
+
+        return string.Empty;
     }
+
 }
