@@ -1,5 +1,6 @@
 using Frends.MicrosoftTeams.SendMessage.Definitions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Text.Json;
 
@@ -255,20 +256,10 @@ public class UnitTests
         request.AddParameter("grant_type", "password");
 
         var response = await client.ExecuteAsync(request);
+        var accessToken = JObject.Parse(response.Content)["access_token"]?.ToString() ?? "";
+        Console.WriteLine("Token:" + accessToken);
 
-        if (!string.IsNullOrEmpty(response.Content))
-        {
-            var jsonResponse = JsonDocument.Parse(response.Content).RootElement;
-
-            if (jsonResponse.TryGetProperty("access_token", out var accessTokenProperty) && accessTokenProperty.ValueKind == JsonValueKind.String)
-                return accessTokenProperty.GetString() ?? "";
-            else
-                Console.WriteLine("Access token not found in JSON response.");
-        }
-        else
-            Console.WriteLine("Response content is empty.");
-
-        return string.Empty;
+        return accessToken;
     }
 
 }
