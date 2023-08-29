@@ -1,0 +1,7 @@
+{
+  "Tasks": [
+    {
+      "TaskMethod": "Frends.MicrosoftTeams.SendMessage.MicrosoftTeams.SendMessage"
+    }
+  ]
+}
