@@ -2,7 +2,6 @@ using Frends.MicrosoftTeams.SendMessage.Definitions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using System.Text.Json;
 
 namespace Frends.MicrosoftTeams.SendMessage.Tests;
 
