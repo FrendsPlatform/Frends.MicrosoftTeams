@@ -233,7 +233,7 @@ public class UnitTests
         Console.WriteLine("Creating AccessToken!");
         // Workflow debugging
         if (_tenantId != null)
-            Console.WriteLine("_clientId found");
+            Console.WriteLine("_tenantId found");
         if (_clientId != null)
             Console.WriteLine("_clientId found");
         if (_clientSecret != null)
@@ -257,6 +257,7 @@ public class UnitTests
         var response = await client.ExecuteAsync(request);
         var accessToken = JObject.Parse(response.Content)["access_token"]?.ToString() ?? "";
         Console.WriteLine("Token:" + accessToken);
+        Console.WriteLine("Full response:" + (response.Content ?? "(empty)"));
 
         return accessToken;
     }
