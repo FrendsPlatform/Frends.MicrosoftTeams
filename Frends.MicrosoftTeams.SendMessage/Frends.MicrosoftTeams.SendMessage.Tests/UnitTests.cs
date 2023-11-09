@@ -15,7 +15,7 @@ public class UnitTests
     private static readonly string? _password = Environment.GetEnvironmentVariable("TestTeams_Password");
     private static readonly string? _tenantId = Environment.GetEnvironmentVariable("TestTeams_TenantId");
     private static string _accessToken = "";
-    private static bool _initialized = false;
+    private static bool _initialized;
 
 
     Input _input = new();
