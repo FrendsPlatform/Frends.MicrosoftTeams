@@ -241,7 +241,7 @@ public class UnitTests
         if (_username != null)
             Console.WriteLine("_username found, length: " + _username.Length + ", first 3 chars: " + _username.Substring(0, 3));
         if (_password != null)
-            Console.WriteLine("_password found, length: " + _password.Length + ", first 3 chars: " + _password.Substring(0, 3));
+            Console.WriteLine("_password found, length: " + _password.Length + ", first 3 chars: " + _password.Substring(0, Math.Min(3, _password.Length)));
 
         using var client = new RestClient();
         RestRequest request = new($"https://login.microsoftonline.com/{_tenantId}/oauth2/v2.0/token", Method.Post);
