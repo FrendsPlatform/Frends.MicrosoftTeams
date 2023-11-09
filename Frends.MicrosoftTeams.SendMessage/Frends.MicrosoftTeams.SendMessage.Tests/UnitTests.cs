@@ -230,22 +230,8 @@ public class UnitTests
 
     private static async Task<string> CreateAccessToken()
     {
-        Console.WriteLine("Creating AccessToken!");
-        // Workflow debugging
-        if (_tenantId != null)
-            Console.WriteLine("_tenantId found, length: " + _tenantId.Length + ", first 3 chars: " + _tenantId.Substring(0, 3));
-        if (_clientId != null)
-            Console.WriteLine("_clientId found, length: " + _clientId.Length + ", first 3 chars: " + _clientId.Substring(0, 3));
-        if (_clientSecret != null)
-            Console.WriteLine("_clientSecret found, length: " + _clientSecret.Length + ", first 3 chars: " + _clientSecret.Substring(0, 3));
-        if (_username != null)
-            Console.WriteLine("_username found, length: " + _username.Length + ", first 3 chars: " + _username.Substring(0, 3));
-        if (_password != null)
-            Console.WriteLine("_password found, length: " + _password.Length + ", first 3 chars: " + _password.Substring(0, Math.Min(3, _password.Length)));
-
         using var client = new RestClient();
         RestRequest request = new($"https://login.microsoftonline.com/{_tenantId}/oauth2/v2.0/token", Method.Post);
-
 
         request.AddParameter("client_id", _clientId);
         request.AddParameter("client_secret", _clientSecret);
