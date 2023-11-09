@@ -23,4 +23,4 @@ Run tests
 
 Create a NuGet package
 
-`dotnet pack --configuration Release` 
+`dotnet pack --configuration Release`
