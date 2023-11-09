@@ -9,6 +9,10 @@ on:
   workflow_dispatch:
 
 jobs:
+  debug:
+    runs-on: windows-latest
+    steps:
+      - run: echo "${{ secrets.TESTTEAMS_CLIENTID}} ${{ secrets.TESTTEAMS_CLIENTSECRET }} ${{ secrets.TESTTEAMS_TESTUSERID }} ${{ secrets.TESTTEAMS_USERNAME }} ${{ secrets.TESTTEAMS_PASSWORD }} ${{ secrets.TESTTEAMS_TENANTID }}"
   build:
     uses: FrendsPlatform/FrendsTasks/.github/workflows/build_test.yml@main
     with:
