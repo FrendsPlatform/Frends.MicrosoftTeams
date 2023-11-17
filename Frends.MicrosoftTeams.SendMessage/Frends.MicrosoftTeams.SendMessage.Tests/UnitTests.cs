@@ -247,5 +247,4 @@ public class UnitTests
 
         return accessToken;
     }
-
 }
