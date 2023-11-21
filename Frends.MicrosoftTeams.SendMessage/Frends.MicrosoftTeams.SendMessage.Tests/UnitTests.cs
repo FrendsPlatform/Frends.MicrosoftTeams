@@ -242,8 +242,6 @@ public class UnitTests
 
         var response = await client.ExecuteAsync(request);
         var accessToken = JObject.Parse(response.Content)["access_token"]?.ToString() ?? "";
-        Console.WriteLine("Token:" + accessToken);
-        Console.WriteLine("Full response:" + (response.Content ?? "(empty)"));
 
         return accessToken;
     }
