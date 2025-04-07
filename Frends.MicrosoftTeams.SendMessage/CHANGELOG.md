@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.1] - 2025-02-17
+## [1.1.0] - 2025-02-17
 ### Added
 - Update:
   Microsoft.Graph       5.24.0 -> 5.73.0
