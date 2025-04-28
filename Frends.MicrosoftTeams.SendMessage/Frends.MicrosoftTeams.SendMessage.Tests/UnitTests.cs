@@ -241,8 +241,11 @@ public class UnitTests
         request.AddParameter("grant_type", "password");
 
         var response = await client.ExecuteAsync(request);
-        var accessToken = JObject.Parse(response.Content)["access_token"]?.ToString() ?? "";
-
-        return accessToken;
+        if (response.Content is not null)
+        {
+            var accessToken = JObject.Parse(response.Content)["access_token"]?.ToString() ?? string.Empty;
+            return accessToken;
+        }
+        return string.Empty;
     }
 }
