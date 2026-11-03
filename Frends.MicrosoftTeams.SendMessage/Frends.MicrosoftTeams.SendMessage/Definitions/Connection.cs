@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Frends.MicrosoftTeams.SendMessage.Definitions;
@@ -8,22 +8,22 @@ namespace Frends.MicrosoftTeams.SendMessage.Definitions;
 /// </summary>
 public class Connection
 {
-    /// <summary>
-    /// Bearer token.
+ /// <summary>
+    /// Gets or sets the Microsoft Graph access token.
     /// </summary>
-    /// <example>eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Imk2bEdrM0ZaenhSY1ViMkMzbkVRN3N5SEpsWSJ9...</example>
+    /// <example>sample-microsoft-graph-access-token</example>
     [DisplayFormat(DataFormatString = "Text")]
     [PasswordPropertyText]
     public string Token { get; set; }
 
-    /// <summary>
-    /// Channel ID.
+ /// <summary>
+    /// Gets or sets the channel ID.
     /// </summary>
     /// <example>20%3au0yPT4vDedASF0InQKu233CiYHqdAtFnXA_45UB6Zgo1%40thread.tacv2</example>
     public string ChannelId { get; set; }
 
-    /// <summary>
-    /// Team ID.
+ /// <summary>
+    /// Gets or sets the team ID.
     /// </summary>
     /// <example>19%3au0yPT4vDedPFASD3QKu233CiZwqdAtFnXA_25UB6Zgo1%40thread.tacv2</example>
     public string TeamId { get; set; }

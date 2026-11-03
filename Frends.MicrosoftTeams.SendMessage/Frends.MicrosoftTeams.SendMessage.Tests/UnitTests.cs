@@ -8,38 +8,37 @@ namespace Frends.MicrosoftTeams.SendMessage.Tests;
 [TestClass]
 public class UnitTests
 {
-    private static readonly string? _clientId = Environment.GetEnvironmentVariable("TestTeams_ClientId");
-    private static readonly string? _clientSecret = Environment.GetEnvironmentVariable("TestTeams_ClientSecret");
-    private static readonly string? _testUserId = Environment.GetEnvironmentVariable("TestTeams_TestUserId");
-    private static readonly string? _username = Environment.GetEnvironmentVariable("TestTeams_Username");
-    private static readonly string? _password = Environment.GetEnvironmentVariable("TestTeams_Password");
-    private static readonly string? _tenantId = Environment.GetEnvironmentVariable("TestTeams_TenantId");
-    private static string _accessToken = "";
-    private static bool _initialized;
+    private static readonly string? ClientId = Environment.GetEnvironmentVariable("TestTeams_ClientId");
+    private static readonly string? ClientSecret = Environment.GetEnvironmentVariable("TestTeams_ClientSecret");
+    private static readonly string? TestUserId = Environment.GetEnvironmentVariable("TestTeams_TestUserId");
+    private static readonly string? Username = Environment.GetEnvironmentVariable("TestTeams_Username");
+    private static readonly string? Password = Environment.GetEnvironmentVariable("TestTeams_Password");
+    private static readonly string? TenantId = Environment.GetEnvironmentVariable("TestTeams_TenantId");
+    private static string accessToken = string.Empty;
+    private static bool initialized;
 
-
-    Input _input = new();
-    Connection _connection = new();
-    Options _options = new();
+    private Input input = new();
+    private Connection connection = new();
+    private Options options = new();
 
     [TestInitialize]
     public async Task Init()
     {
         // Workaround for MS tools "OneTimeSetup"
-        if (!_initialized)
+        if (!initialized)
         {
-            _accessToken = await CreateAccessToken();
-            _initialized = true;
+            accessToken = await CreateAccessToken();
+            initialized = true;
         }
 
-        _connection = new()
+        connection = new()
         {
             ChannelId = "19%3aWjtkDM-KdSDaF8iWG_0Wcc5TRkAp5VkPugilCPwY3EM1%40thread.tacv2",
             TeamId = "4bfb0e07-d3e7-4924-a761-c46a5ef8f574",
-            Token = _accessToken
+            Token = accessToken,
         };
 
-        _input = new()
+        input = new()
         {
             Subject = "Test subject",
             MessageContent = "Test content.",
@@ -47,10 +46,10 @@ public class UnitTests
             AttachmentParameters = null,
             SetMentions = false,
             MentionParameters = null,
-            BodyType = BodyTypes.html
+            BodyType = BodyTypes.Html,
         };
 
-        _options = new()
+        options = new()
         {
             ThrowOnError = true,
         };
@@ -59,7 +58,7 @@ public class UnitTests
     [TestMethod]
     public async Task Test_Send_Success()
     {
-        var result = await MicrosoftTeams.SendMessage(_connection, _input, _options, default);
+        var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNull(result.ErrorMessage);
     }
@@ -67,15 +66,15 @@ public class UnitTests
     [TestMethod]
     public async Task Test_Send_Mentions_Success()
     {
-
-        var mention = new[] {
+        var mention = new[]
+        {
             new MentionParameters()
             {
                 MentionId = 0,
                 AdditionalDataParameters = null,
                 MentionText = "Teemu Tossavainen",
                 UserDisplayName = "UserDisplayName",
-                UserId = _testUserId
+                UserId = TestUserId,
             },
             new MentionParameters()
             {
@@ -83,15 +82,15 @@ public class UnitTests
                 AdditionalDataParameters = null,
                 MentionText = "Borissov Jefim",
                 UserDisplayName = "UserDisplayName",
-                UserId = "78252de7-fc63-46a5-a903-3c43760f97dd"
-            }
+                UserId = "78252de7-fc63-46a5-a903-3c43760f97dd",
+            },
         };
 
-        _input.MessageContent = "Hello <at id=\"0\">Teemu Tossavainen</at> <at id=\"1\">Borissov Jefim</at>";
-        _input.SetMentions = true;
-        _input.MentionParameters = mention;
+        input.MessageContent = "Hello <at id=\"0\">Teemu Tossavainen</at> <at id=\"1\">Borissov Jefim</at>";
+        input.SetMentions = true;
+        input.MentionParameters = mention;
 
-        var result = await MicrosoftTeams.SendMessage(_connection, _input, _options, default);
+        var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNull(result.ErrorMessage);
     }
@@ -106,23 +105,23 @@ public class UnitTests
                 Id = "128b6438-5936-4093-97c9-44e0365222ab",
                 ContentType = "reference",
                 ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
-                Name = "TeamsTaskTest.txt"
+                Name = "TeamsTaskTest.txt",
             },
             new AttachmentParameters()
             {
                 Id = "6740d7bf-2d0c-498b-a5f5-40b309b101cd",
                 ContentType = "reference",
                 ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest_Second.txt",
-                Name = "TeamsTaskTest_Second.txt"
+                Name = "TeamsTaskTest_Second.txt",
             },
         };
 
-        _input.MessageContent = "Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment> -  Attachment 2: <attachment id=\"6740d7bf-2d0c-498b-a5f5-40b309b101cd\"></attachment>";
+        input.MessageContent = "Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment> -  Attachment 2: <attachment id=\"6740d7bf-2d0c-498b-a5f5-40b309b101cd\"></attachment>";
 
-        _input.SetAttachments = true;
-        _input.AttachmentParameters = attachment;
+        input.SetAttachments = true;
+        input.AttachmentParameters = attachment;
 
-        var result = await MicrosoftTeams.SendMessage(_connection, _input, _options, default);
+        var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNull(result.ErrorMessage);
     }
@@ -137,25 +136,26 @@ public class UnitTests
                 Id = "128b6438-5936-4093-97c9-44e0365222ab",
                 ContentType = "reference",
                 ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
-                Name = "TeamsTaskTest.txt"
+                Name = "TeamsTaskTest.txt",
             },
             new AttachmentParameters()
             {
                 Id = "6740d7bf-2d0c-498b-a5f5-40b309b101cd",
                 ContentType = "reference",
                 ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest_Second.txt",
-                Name = "TeamsTaskTest_Second.txt"
+                Name = "TeamsTaskTest_Second.txt",
             },
         };
 
-        var mentions = new[] {
+        var mentions = new[]
+        {
             new MentionParameters()
             {
                 MentionId = 0,
                 AdditionalDataParameters = null,
                 MentionText = "Teemu Tossavainen",
                 UserDisplayName = "UserDisplayName",
-                UserId = _testUserId
+                UserId = TestUserId,
             },
             new MentionParameters()
             {
@@ -163,17 +163,17 @@ public class UnitTests
                 AdditionalDataParameters = null,
                 MentionText = "Borissov Jefim",
                 UserDisplayName = "UserDisplayName",
-                UserId = "78252de7-fc63-46a5-a903-3c43760f97dd"
-            }
+                UserId = "78252de7-fc63-46a5-a903-3c43760f97dd",
+            },
         };
 
-        _input.MessageContent = "Hello <at id=\"0\">Teemu Tossavainen</at> and <at id=\"1\">Borissov Jefim</at>! Here's some test attachments: Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment> -  Attachment 2: <attachment id=\"6740d7bf-2d0c-498b-a5f5-40b309b101cd\"></attachment>";
-        _input.SetAttachments = true;
-        _input.AttachmentParameters = attachment;
-        _input.SetMentions = true;
-        _input.MentionParameters = mentions;
+        input.MessageContent = "Hello <at id=\"0\">Teemu Tossavainen</at> and <at id=\"1\">Borissov Jefim</at>! Here's some test attachments: Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment> -  Attachment 2: <attachment id=\"6740d7bf-2d0c-498b-a5f5-40b309b101cd\"></attachment>";
+        input.SetAttachments = true;
+        input.AttachmentParameters = attachment;
+        input.SetMentions = true;
+        input.MentionParameters = mentions;
 
-        var result = await MicrosoftTeams.SendMessage(_connection, _input, _options, default);
+        var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsTrue(result.Success);
         Assert.IsNull(result.ErrorMessage);
     }
@@ -188,17 +188,17 @@ public class UnitTests
                 Id = "Missing ID",
                 ContentType = "reference",
                 ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
-                Name = "TeamsTaskTest.txt"
+                Name = "TeamsTaskTest.txt",
             },
         };
 
-        _input.MessageContent = "Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment>";
+        input.MessageContent = "Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment>";
 
-        _input.SetAttachments = true;
-        _input.AttachmentParameters = attachment;
-        _options.ThrowOnError = false;
+        input.SetAttachments = true;
+        input.AttachmentParameters = attachment;
+        options.ThrowOnError = false;
 
-        var result = await MicrosoftTeams.SendMessage(_connection, _input, _options, default);
+        var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsFalse(result.Success);
         Assert.IsNotNull(result.ErrorMessage);
         Assert.IsTrue(result.ErrorMessage.Contains("Body does not contain marker for attachment with Id 'Missing ID'"));
@@ -214,30 +214,30 @@ public class UnitTests
                 Id = "Missing ID",
                 ContentType = "reference",
                 ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
-                Name = "TeamsTaskTest.txt"
+                Name = "TeamsTaskTest.txt",
             },
         };
 
-        _input.MessageContent = "Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment>";
+        input.MessageContent = "Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment>";
 
-        _input.SetAttachments = true;
-        _input.AttachmentParameters = attachment;
-        _options.ThrowOnError = true;
+        input.SetAttachments = true;
+        input.AttachmentParameters = attachment;
+        options.ThrowOnError = true;
 
-        var ex = await Assert.ThrowsExceptionAsync<HttpRequestException>(() => MicrosoftTeams.SendMessage(_connection, _input, _options, default));
+        var ex = await Assert.ThrowsExceptionAsync<HttpRequestException>(() => MicrosoftTeams.SendMessage(input, connection, options, default));
         Assert.IsTrue(ex.Message.Contains("Body does not contain marker for attachment with Id 'Missing ID'"));
     }
 
     private static async Task<string> CreateAccessToken()
     {
         using var client = new RestClient();
-        RestRequest request = new($"https://login.microsoftonline.com/{_tenantId}/oauth2/v2.0/token", Method.Post);
+        RestRequest request = new($"https://login.microsoftonline.com/{TenantId}/oauth2/v2.0/token", Method.Post);
 
-        request.AddParameter("client_id", _clientId);
-        request.AddParameter("client_secret", _clientSecret);
+        request.AddParameter("client_id", ClientId);
+        request.AddParameter("client_secret", ClientSecret);
         request.AddParameter("scope", "https://graph.microsoft.com/.default");
-        request.AddParameter("username", _username);
-        request.AddParameter("password", _password);
+        request.AddParameter("username", Username);
+        request.AddParameter("password", Password);
         request.AddParameter("grant_type", "password");
 
         var response = await client.ExecuteAsync(request);
@@ -246,6 +246,7 @@ public class UnitTests
             var accessToken = JObject.Parse(response.Content)["access_token"]?.ToString() ?? string.Empty;
             return accessToken;
         }
+
         return string.Empty;
     }
 }

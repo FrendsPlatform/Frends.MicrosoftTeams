@@ -1,18 +1,18 @@
-﻿namespace Frends.MicrosoftTeams.SendMessage.Definitions;
+namespace Frends.MicrosoftTeams.SendMessage.Definitions;
 
 /// <summary>
-/// AdditionalDataParameter.
+/// Additional data parameter.
 /// </summary>
 public class AdditionalDataParameter
 {
     /// <summary>
-    /// Key.
+    /// Gets or sets the key.
     /// </summary>
     /// <example>foo</example>
     public string Key { get; set; }
 
     /// <summary>
-    /// Value.
+    /// Gets or sets the value.
     /// </summary>
     /// <example>bar</example>
     public object Value { get; set; }

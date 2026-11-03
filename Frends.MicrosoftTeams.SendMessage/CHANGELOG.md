@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0] - 2026-11-03
+### Changed
+- **[Breaking Change]** `SendMessage` parameters are now ordered `Input`, `Connection`, `Options`, and `CancellationToken`.
+- **[Breaking Change]** Failures now throw by default; set `ThrowErrorOnFailure` to `false` to return failure details.
+- **[Breaking Change]** Renamed the message body types `text` and `html` to `Text` and `Html`.
+
 ## [1.1.0] - 2025-02-17
 ### Added
 - Update:
