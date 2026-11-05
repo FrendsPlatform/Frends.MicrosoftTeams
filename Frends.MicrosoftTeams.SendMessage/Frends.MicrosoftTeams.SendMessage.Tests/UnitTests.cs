@@ -1,36 +1,24 @@
 using Frends.MicrosoftTeams.SendMessage.Definitions;
 using Microsoft.Graph.Models.ODataErrors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json.Linq;
-using RestSharp;
 
 namespace Frends.MicrosoftTeams.SendMessage.Tests;
 
 [TestClass]
 public class UnitTests : TestBase
 {
-    private static string accessToken = string.Empty;
-    private static bool initialized;
-
     private Input input = new();
     private Connection connection = new();
     private Options options = new();
 
     [TestInitialize]
-    public async Task Init()
+    public void Init()
     {
-        // Workaround for MS tools "OneTimeSetup"
-        if (!initialized)
-        {
-            accessToken = await CreateAccessToken();
-            initialized = true;
-        }
-
         connection = new Connection
         {
             ChannelId = ChannelId,
             TeamId = TeamId,
-            Token = accessToken,
+            Token = AccessToken,
         };
 
         input = new Input
@@ -195,6 +183,7 @@ public class UnitTests : TestBase
 
         input.SetAttachments = true;
         input.AttachmentParameters = attachment;
+        options.ThrowErrorOnFailure = false;
 
         var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsFalse(result.Success);
@@ -225,27 +214,5 @@ public class UnitTests : TestBase
         var ex = await Assert.ThrowsExceptionAsync<ODataError>(() =>
             MicrosoftTeams.SendMessage(input, connection, options, default));
         Assert.IsTrue(ex.Message.Contains("Body does not contain marker for attachment with Id 'Missing ID'"));
-    }
-
-    private async Task<string> CreateAccessToken()
-    {
-        using var client = new RestClient();
-        RestRequest request = new($"https://login.microsoftonline.com/{TenantId}/oauth2/v2.0/token", Method.Post);
-
-        request.AddParameter("client_id", ClientId);
-        request.AddParameter("client_secret", ClientSecret);
-        request.AddParameter("scope", "https://graph.microsoft.com/.default");
-        request.AddParameter("username", Username);
-        request.AddParameter("password", Password);
-        request.AddParameter("grant_type", "password");
-
-        var response = await client.ExecuteAsync(request);
-        if (response.Content is not null)
-        {
-            var accessToken = JObject.Parse(response.Content)["access_token"]?.ToString() ?? string.Empty;
-            return accessToken;
-        }
-
-        return string.Empty;
     }
 }
