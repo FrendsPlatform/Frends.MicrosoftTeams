@@ -26,14 +26,14 @@ public class UnitTests : TestBase
             initialized = true;
         }
 
-        connection = new()
+        connection = new Connection
         {
             ChannelId = ChannelId,
             TeamId = TeamId,
             Token = accessToken,
         };
 
-        input = new()
+        input = new Input
         {
             Subject = "Test subject",
             MessageContent = "Test content.",
@@ -44,10 +44,7 @@ public class UnitTests : TestBase
             BodyType = BodyTypes.Html,
         };
 
-        options = new()
-        {
-            ThrowOnError = true,
-        };
+        options = new Options();
     }
 
     [TestMethod]
@@ -198,7 +195,6 @@ public class UnitTests : TestBase
 
         input.SetAttachments = true;
         input.AttachmentParameters = attachment;
-        options.ThrowOnError = false;
 
         var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsFalse(result.Success);
@@ -225,7 +221,6 @@ public class UnitTests : TestBase
 
         input.SetAttachments = true;
         input.AttachmentParameters = attachment;
-        options.ThrowOnError = true;
 
         var ex = await Assert.ThrowsExceptionAsync<ODataError>(() =>
             MicrosoftTeams.SendMessage(input, connection, options, default));

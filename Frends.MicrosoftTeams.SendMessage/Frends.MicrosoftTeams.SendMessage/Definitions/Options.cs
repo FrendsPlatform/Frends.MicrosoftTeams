@@ -6,16 +6,6 @@ namespace Frends.MicrosoftTeams.SendMessage.Definitions;
 public class Options
 {
     /// <summary>
-    /// Gets or sets whether to throw an error on failure using the legacy option name.
-    /// </summary>
-    /// <example>false</example>
-    public bool ThrowOnError
-    {
-        get => ThrowErrorOnFailure;
-        set => ThrowErrorOnFailure = value;
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether to throw an error on failure.
     /// </summary>
     /// <example>true</example>

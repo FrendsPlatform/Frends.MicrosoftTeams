@@ -19,6 +19,7 @@ public abstract class TestBase
     protected string ClientId { get; }
 
     protected string ClientSecret { get; }
+
     protected string Username { get; }
 
     protected string Password { get; }
