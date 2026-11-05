@@ -6,14 +6,8 @@ using RestSharp;
 namespace Frends.MicrosoftTeams.SendMessage.Tests;
 
 [TestClass]
-public class UnitTests
+public class UnitTests : TestBase
 {
-    private static readonly string? ClientId = Environment.GetEnvironmentVariable("TestTeams_ClientId");
-    private static readonly string? ClientSecret = Environment.GetEnvironmentVariable("TestTeams_ClientSecret");
-    private static readonly string? TestUserId = Environment.GetEnvironmentVariable("TestTeams_TestUserId");
-    private static readonly string? Username = Environment.GetEnvironmentVariable("TestTeams_Username");
-    private static readonly string? Password = Environment.GetEnvironmentVariable("TestTeams_Password");
-    private static readonly string? TenantId = Environment.GetEnvironmentVariable("TestTeams_TenantId");
     private static string accessToken = string.Empty;
     private static bool initialized;
 
@@ -33,8 +27,8 @@ public class UnitTests
 
         connection = new()
         {
-            ChannelId = "19%3aWjtkDM-KdSDaF8iWG_0Wcc5TRkAp5VkPugilCPwY3EM1%40thread.tacv2",
-            TeamId = "4bfb0e07-d3e7-4924-a761-c46a5ef8f574",
+            ChannelId = ChannelId,
+            TeamId = TeamId,
             Token = accessToken,
         };
 
@@ -104,19 +98,22 @@ public class UnitTests
             {
                 Id = "128b6438-5936-4093-97c9-44e0365222ab",
                 ContentType = "reference",
-                ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
+                ContentUrl =
+                    "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
                 Name = "TeamsTaskTest.txt",
             },
             new AttachmentParameters()
             {
                 Id = "6740d7bf-2d0c-498b-a5f5-40b309b101cd",
                 ContentType = "reference",
-                ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest_Second.txt",
+                ContentUrl =
+                    "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest_Second.txt",
                 Name = "TeamsTaskTest_Second.txt",
             },
         };
 
-        input.MessageContent = "Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment> -  Attachment 2: <attachment id=\"6740d7bf-2d0c-498b-a5f5-40b309b101cd\"></attachment>";
+        input.MessageContent =
+            "Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment> -  Attachment 2: <attachment id=\"6740d7bf-2d0c-498b-a5f5-40b309b101cd\"></attachment>";
 
         input.SetAttachments = true;
         input.AttachmentParameters = attachment;
@@ -135,14 +132,16 @@ public class UnitTests
             {
                 Id = "128b6438-5936-4093-97c9-44e0365222ab",
                 ContentType = "reference",
-                ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
+                ContentUrl =
+                    "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
                 Name = "TeamsTaskTest.txt",
             },
             new AttachmentParameters()
             {
                 Id = "6740d7bf-2d0c-498b-a5f5-40b309b101cd",
                 ContentType = "reference",
-                ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest_Second.txt",
+                ContentUrl =
+                    "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest_Second.txt",
                 Name = "TeamsTaskTest_Second.txt",
             },
         };
@@ -167,7 +166,8 @@ public class UnitTests
             },
         };
 
-        input.MessageContent = "Hello <at id=\"0\">Teemu Tossavainen</at> and <at id=\"1\">Borissov Jefim</at>! Here's some test attachments: Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment> -  Attachment 2: <attachment id=\"6740d7bf-2d0c-498b-a5f5-40b309b101cd\"></attachment>";
+        input.MessageContent =
+            "Hello <at id=\"0\">Teemu Tossavainen</at> and <at id=\"1\">Borissov Jefim</at>! Here's some test attachments: Attachment 1: <attachment id=\"128b6438-5936-4093-97c9-44e0365222ab\"></attachment> -  Attachment 2: <attachment id=\"6740d7bf-2d0c-498b-a5f5-40b309b101cd\"></attachment>";
         input.SetAttachments = true;
         input.AttachmentParameters = attachment;
         input.SetMentions = true;
@@ -187,7 +187,8 @@ public class UnitTests
             {
                 Id = "Missing ID",
                 ContentType = "reference",
-                ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
+                ContentUrl =
+                    "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
                 Name = "TeamsTaskTest.txt",
             },
         };
@@ -213,7 +214,8 @@ public class UnitTests
             {
                 Id = "Missing ID",
                 ContentType = "reference",
-                ContentUrl = "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
+                ContentUrl =
+                    "https://unthink.sharepoint.com/:t:/r/sites/FrendsTeamsTaskDevelopment/Shared%20Documents/General/TeamsTaskTest.txt",
                 Name = "TeamsTaskTest.txt",
             },
         };
@@ -224,11 +226,12 @@ public class UnitTests
         input.AttachmentParameters = attachment;
         options.ThrowOnError = true;
 
-        var ex = await Assert.ThrowsExceptionAsync<HttpRequestException>(() => MicrosoftTeams.SendMessage(input, connection, options, default));
+        var ex = await Assert.ThrowsExceptionAsync<HttpRequestException>(() =>
+            MicrosoftTeams.SendMessage(input, connection, options, default));
         Assert.IsTrue(ex.Message.Contains("Body does not contain marker for attachment with Id 'Missing ID'"));
     }
 
-    private static async Task<string> CreateAccessToken()
+    private async Task<string> CreateAccessToken()
     {
         using var client = new RestClient();
         RestRequest request = new($"https://login.microsoftonline.com/{TenantId}/oauth2/v2.0/token", Method.Post);

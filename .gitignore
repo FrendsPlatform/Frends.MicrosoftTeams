@@ -250,3 +250,6 @@ Frends.Community.*/Frends.Community.*/Frends.Community.*.xml
 
 # PowerShell scripts
 *.ps1
+# Local test secrets
+.env
+.env.local
