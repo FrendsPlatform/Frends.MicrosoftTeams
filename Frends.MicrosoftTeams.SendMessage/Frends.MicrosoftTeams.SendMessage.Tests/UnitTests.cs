@@ -1,4 +1,5 @@
 using Frends.MicrosoftTeams.SendMessage.Definitions;
+using Microsoft.Graph.Models.ODataErrors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
 using RestSharp;
@@ -68,7 +69,7 @@ public class UnitTests : TestBase
                 AdditionalDataParameters = null,
                 MentionText = "Teemu Tossavainen",
                 UserDisplayName = "UserDisplayName",
-                UserId = TestUserId,
+                UserId = "x",
             },
             new MentionParameters()
             {
@@ -154,7 +155,7 @@ public class UnitTests : TestBase
                 AdditionalDataParameters = null,
                 MentionText = "Teemu Tossavainen",
                 UserDisplayName = "UserDisplayName",
-                UserId = TestUserId,
+                UserId = "x",
             },
             new MentionParameters()
             {
@@ -226,7 +227,7 @@ public class UnitTests : TestBase
         input.AttachmentParameters = attachment;
         options.ThrowOnError = true;
 
-        var ex = await Assert.ThrowsExceptionAsync<HttpRequestException>(() =>
+        var ex = await Assert.ThrowsExceptionAsync<ODataError>(() =>
             MicrosoftTeams.SendMessage(input, connection, options, default));
         Assert.IsTrue(ex.Message.Contains("Body does not contain marker for attachment with Id 'Missing ID'"));
     }

@@ -9,7 +9,6 @@ public abstract class TestBase
         DotEnv.Load();
         ClientId = GetEnvVar("TestTeams_ClientId");
         ClientSecret = GetEnvVar("TestTeams_ClientSecret");
-        TestUserId = GetEnvVar("TestTeams_TestUserId");
         Username = GetEnvVar("TestTeams_Username");
         Password = GetEnvVar("TestTeams_Password");
         TenantId = GetEnvVar("TestTeams_TenantId");
@@ -20,9 +19,6 @@ public abstract class TestBase
     protected string ClientId { get; }
 
     protected string ClientSecret { get; }
-
-    protected string TestUserId { get; }
-
     protected string Username { get; }
 
     protected string Password { get; }
@@ -36,6 +32,8 @@ public abstract class TestBase
     private static string GetEnvVar(string name)
     {
         var value = Environment.GetEnvironmentVariable(name);
-        return !string.IsNullOrWhiteSpace(value) ? value : throw new InvalidOperationException($"Missing required env var: {name}");
+        return !string.IsNullOrWhiteSpace(value)
+            ? value
+            : throw new InvalidOperationException($"Missing required env var: {name}");
     }
 }
