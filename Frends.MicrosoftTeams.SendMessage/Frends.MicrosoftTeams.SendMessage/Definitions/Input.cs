@@ -9,34 +9,34 @@ namespace Frends.MicrosoftTeams.SendMessage.Definitions;
 public class Input
 {
     /// <summary>
-    /// Gets or sets the subject of the chat message in plain text.
+    /// The subject of the chat message in plain text.
     /// It can be empty.
     /// </summary>
     /// <example>This is subject</example>
     public string Subject { get; set; }
 
     /// <summary>
-    /// Gets or sets the type of the message content.
+    /// The type of the message content.
     /// </summary>
     /// <example>BodyTypes.Html</example>
     [DefaultValue(BodyTypes.Html)]
     public BodyTypes BodyType { get; set; }
 
     /// <summary>
-    /// Gets or sets the message content.
+    /// The message content.
     /// </summary>
     /// <example>This is a plain message, This is html message to &lt;at id=\"0\"&gt;Jane Smith&gt;/at&lt;</example>
     public string MessageContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether to include entities mentioned in the chat message.
+    /// Indicates whether to include entities mentioned in the chat message.
     /// </summary>
     /// <example>true</example>
     [DefaultValue(false)]
     public bool SetMentions { get; set; }
 
     /// <summary>
-    /// Gets or sets the entities mentioned in the chat message.
+    /// The entities mentioned in the chat message.
     /// Supported entities are: user, bot, team, and channel.
     /// </summary>
     /// <example>
@@ -49,7 +49,7 @@ public class Input
     public MentionParameters[] MentionParameters { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether to add references to attached files, tabs, or meetings.
+    /// Indicates whether to add references to attached files, tabs, or meetings.
     /// The file must already be in SharePoint. See https://learn.microsoft.com/en-us/graph/api/chatmessage-post?view=graph-rest-1.0&amp;tabs=csharp.
     /// </summary>
     /// <example>true</example>
@@ -57,7 +57,7 @@ public class Input
     public bool SetAttachments { get; set; }
 
     /// <summary>
-    /// Gets or sets references to attached files, tabs, or meetings.
+    /// References to attached files, tabs, or meetings.
     /// </summary>
     /// <example>
     /// {

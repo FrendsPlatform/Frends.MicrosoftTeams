@@ -8,13 +8,13 @@ namespace Frends.MicrosoftTeams.SendMessage.Definitions;
 public class Error
 {
     /// <summary>
-    /// Gets or sets the summary of the error.
+    /// The summary of the error.
     /// </summary>
     /// <example>Microsoft Graph request failed</example>
     public string Message { get; set; }
 
     /// <summary>
-    /// Gets or sets additional information about the error.
+    /// Additional information about the error.
     /// </summary>
     /// <example>HttpRequestException: Request failed</example>
     public Exception AdditionalInfo { get; set; }

@@ -40,7 +40,6 @@ public static class MicrosoftTeams
             return new Result
             {
                 Success = true,
-                ErrorMessage = null,
                 Error = null,
             };
         }

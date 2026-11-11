@@ -12,12 +12,6 @@ public class Result
     public bool Success { get; set; }
 
     /// <summary>
-    /// Gets or sets the error message.
-    /// </summary>
-    /// <example>Microsoft Graph request failed</example>
-    public string ErrorMessage { get; set; }
-
-    /// <summary>
     /// Gets or sets the error details.
     /// </summary>
     /// <example>object { Message = "Microsoft Graph request failed", AdditionalInfo = HttpRequestException }</example>

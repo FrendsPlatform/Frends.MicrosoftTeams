@@ -50,7 +50,6 @@ internal static class ErrorHandler
         return new Result
         {
             Success = false,
-            ErrorMessage = errorMessage,
             Error = new Error
             {
                 Message = errorMessage,

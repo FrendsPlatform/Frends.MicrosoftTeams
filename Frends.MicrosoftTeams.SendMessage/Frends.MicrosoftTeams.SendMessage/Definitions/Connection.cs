@@ -9,21 +9,21 @@ namespace Frends.MicrosoftTeams.SendMessage.Definitions;
 public class Connection
 {
     /// <summary>
-    /// Gets or sets the Microsoft Graph access token.
+    /// Microsoft Graph access token.
     /// </summary>
-    /// <example>sample-microsoft-graph-access-token</example>
+    /// <example>eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Imk2bEdrM0ZaenhSY1ViMkMzbkVRN3N5SEpsWSJ9...</example>
     [DisplayFormat(DataFormatString = "Text")]
     [PasswordPropertyText]
     public string Token { get; set; }
 
     /// <summary>
-    /// Gets or sets the channel ID.
+    /// Channel ID.
     /// </summary>
     /// <example>20%3au0yPT4vDedASF0InQKu233CiYHqdAtFnXA_45UB6Zgo1%40thread.tacv2</example>
     public string ChannelId { get; set; }
 
     /// <summary>
-    /// Gets or sets the team ID.
+    /// Team ID.
     /// </summary>
     /// <example>19%3au0yPT4vDedPFASD3QKu233CiZwqdAtFnXA_25UB6Zgo1%40thread.tacv2</example>
     public string TeamId { get; set; }

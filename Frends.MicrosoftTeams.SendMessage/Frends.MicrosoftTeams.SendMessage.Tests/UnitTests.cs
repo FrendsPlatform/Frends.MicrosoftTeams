@@ -40,7 +40,7 @@ public class UnitTests : TestBase
     {
         var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsTrue(result.Success);
-        Assert.IsNull(result.ErrorMessage);
+        Assert.IsNull(result.Error);
     }
 
     [TestMethod]
@@ -72,7 +72,7 @@ public class UnitTests : TestBase
 
         var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsTrue(result.Success);
-        Assert.IsNull(result.ErrorMessage);
+        Assert.IsNull(result.Error);
     }
 
     [TestMethod]
@@ -106,7 +106,7 @@ public class UnitTests : TestBase
 
         var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsTrue(result.Success);
-        Assert.IsNull(result.ErrorMessage);
+        Assert.IsNull(result.Error);
     }
 
     [TestMethod]
@@ -161,7 +161,7 @@ public class UnitTests : TestBase
 
         var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsTrue(result.Success);
-        Assert.IsNull(result.ErrorMessage);
+        Assert.IsNull(result.Error);
     }
 
     [TestMethod]
@@ -187,8 +187,8 @@ public class UnitTests : TestBase
 
         var result = await MicrosoftTeams.SendMessage(input, connection, options, default);
         Assert.IsFalse(result.Success);
-        Assert.IsNotNull(result.ErrorMessage);
-        Assert.IsTrue(result.ErrorMessage.Contains("Body does not contain marker for attachment with Id 'Missing ID'"));
+        Assert.IsNotNull(result.Error);
+        Assert.IsTrue(result.Error.Message.Contains("Body does not contain marker for attachment with Id 'Missing ID'"));
     }
 
     [TestMethod]
