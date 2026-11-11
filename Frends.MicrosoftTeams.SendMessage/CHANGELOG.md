@@ -10,7 +10,6 @@
 - **[Breaking Change]** Renamed `Options.ThrowOnError` to `Options.ThrowErrorOnFailure`.
 - **[Breaking Change]** Failures now throw by default; set it to `false` to return failure details.
 - **[Breaking Change]** Thrown exceptions are no longer wrapped in `HttpRequestException` with a type prefix (e.g. `ODataError Exception:`); the original exception is rethrown, or wrapped in an `Exception` with `ErrorMessageOnFailure` as message when set.
-- **[Breaking Change]** `Result.ErrorMessage` now contains the original exception message (prefixed with `ErrorMessageOnFailure` when set) instead of a type-prefixed message.
 - **[Breaking Change]** Renamed the `Input.BodyType` values `text` and `html` to `Text` and `Html`.
 - Update target framework to .NET 8.0.
 
