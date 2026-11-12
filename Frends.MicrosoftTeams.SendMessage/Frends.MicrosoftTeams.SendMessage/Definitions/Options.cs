@@ -1,4 +1,4 @@
-﻿namespace Frends.MicrosoftTeams.SendMessage.Definitions;
+namespace Frends.MicrosoftTeams.SendMessage.Definitions;
 
 /// <summary>
 /// Options parameters.
@@ -6,9 +6,14 @@
 public class Options
 {
     /// <summary>
-    /// Throw an error on exception.
-    /// If set to false, exception message can be found in Result.ErrorMessage.
+    /// Indicates whether to throw an error on failure.
     /// </summary>
     /// <example>true</example>
-    public bool ThrowOnError { get; set; }
+    public bool ThrowErrorOnFailure { get; set; } = true;
+
+    /// <summary>
+    /// The error message to use on failure.
+    /// </summary>
+    /// <example>Microsoft Teams message delivery failed</example>
+    public string ErrorMessageOnFailure { get; set; } = string.Empty;
 }

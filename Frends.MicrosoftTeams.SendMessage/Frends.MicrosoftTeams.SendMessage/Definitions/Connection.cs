@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Frends.MicrosoftTeams.SendMessage.Definitions;
@@ -9,7 +9,7 @@ namespace Frends.MicrosoftTeams.SendMessage.Definitions;
 public class Connection
 {
     /// <summary>
-    /// Bearer token.
+    /// Microsoft Graph access token.
     /// </summary>
     /// <example>eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Imk2bEdrM0ZaenhSY1ViMkMzbkVRN3N5SEpsWSJ9...</example>
     [DisplayFormat(DataFormatString = "Text")]

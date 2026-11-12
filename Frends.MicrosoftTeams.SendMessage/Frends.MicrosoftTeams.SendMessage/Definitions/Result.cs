@@ -1,4 +1,4 @@
-﻿namespace Frends.MicrosoftTeams.SendMessage.Definitions;
+namespace Frends.MicrosoftTeams.SendMessage.Definitions;
 
 /// <summary>
 /// Task's result.
@@ -6,20 +6,14 @@
 public class Result
 {
     /// <summary>
-    /// Operation complete without errors.
+    /// Value indicating whether the operation completed without errors.
     /// </summary>
     /// <example>true</example>
-    public bool Success { get; private set; }
+    public bool Success { get; set; }
 
     /// <summary>
-    /// Error message.
+    /// Error details.
     /// </summary>
-    /// <example>An error occured...</example>
-    public string ErrorMessage { get; private set; }
-
-    internal Result(bool success, string errorMessage)
-    {
-        Success = success;
-        ErrorMessage = errorMessage;
-    }
+    /// <example>object { Message = "Microsoft Graph request failed", AdditionalInfo = HttpRequestException }</example>
+    public Error Error { get; set; }
 }
